@@ -1,0 +1,147 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Debian tutorial, tips @ hints</title>
+
+	<style type="text/css">
+	body
+	{
+		color: #333;
+		font-size: 14px;
+		font-family: Helvetica, Arial, sans-serif;
+		width: 100%;
+		max-width: 1024px;
+		padding: 25px;
+		margin: auto;
+	}
+
+	h1
+	{
+		font-size: 35px;
+		font-weight: lighter;
+	}
+
+	h2
+	{
+		font-weight: lighter;
+		border-top: 1px solid #eee;
+		padding-top: 0.6em;
+		margin-top: 2.6em;
+	}
+
+	p
+	{
+		line-height: 1.6em;
+	}
+
+	code
+	{
+		display: block;
+		padding: 5px 10px;
+		line-height: 1.6em;
+		background-color: #eee;
+	}
+
+	code.inline
+	{
+		display: inline-block;
+		line-height: 1em;
+	}
+
+
+	ol > li 
+	{
+		line-height: 1.5em;
+	}
+	</style>
+</head>
+<body>
+
+
+	<h1>Debian tips &amp; tricks</h1>
+	<p class="subtitle"></p>
+
+	<section>
+		<ol>
+			<li><a href="#change-mysql-database-directory">Changing Mysql defaut database storage directory</a></li>
+			<li><a href="#install-neo4j-on-debian">Installing Neo4j graph database</a></li>
+			<li><a href="#change-neo4j-database-directory">Chaning Neo4j default database storage directory</a></li>
+		</ol>
+	</section>
+
+
+
+	<section>
+		<h2 id="change-mysql-database-directory">Change Mysql default database directory</h2>
+
+		<p>If you put Mysql database in the wrong folder on your server or whish to change the database directory on another partition when it takes some space, read that !</p>
+		
+		<p>Connect to your server as root. First stop Mysql.</p>
+		<code>
+			/etc/init.d/mysql stop
+		</code>
+
+		<p><strong>Move Mysql database files to a new directory</strong> and edit Mysql configuration file.</p>
+		<code>
+			cp -R -p /var/lib/mysql /newpath<br>
+			nano /etc/mysql/my.cnf
+		</code>
+
+		<p>Look for the <code class="inline">datadir</code> entry here (should be <code class="inline">/var/lib/mysql</code>) and change it to <code class="inline">/newpath</code></p>
+
+		<p>Restart Mysql and your done !</p>
+		<code>/etc/init.d/mysql restart</code>
+	</section>
+
+
+
+	<section>
+		<h2 id="install-neo4j-on-debian">Install Neo4j Graph database</h2>
+
+		<p>Ever wanted to isntall Neo4j super nice project graph database ? Follow theses steps !</p>
+		
+		<p>Connect to your server as root and add the Neo4j apt package manager, then add Neo4J to the Apt sources list:</p>
+		<code>
+			wget -O - http://debian.neo4j.org/neotechnology.gpg.key | apt-key add -<br>
+			echo 'deb http://debian.neo4j.org/repo stable/' > /etc/apt/sources.list.d/neo4j.list
+		</code>
+
+		<p>Update the package manager and <strong>install</strong> Neo4j</p>
+		<code>
+			apt-get update<br>
+			apt-get install neo4j
+		</code>
+
+		<p>Here you <strong>you are</strong>, just check that Neo4j is running ! You should be able to access the Neo4J server webadmin vie [IP.NU.MB.ER]:7474</p>
+		<code>service neo4j-service status</code>
+	</section>
+
+
+	<section>
+		<h2 id="change-neo4j-database-directory">Change Neo4j defautl database directory</h2>
+
+		<p>Under construction</p>
+		
+		<p></p>
+		<code>
+			
+		</code>
+
+		<p></p>
+		<code>
+			
+		</code>
+	</section>
+
+
+	<section>
+		<h2 id="debian-finding-large-files-in-directory">Finding large files in a directory</h2>
+
+		<p>Move ya'self to the desired directory via <code class="inline">cd /somedir/path</code> and then run</p>
+		<code>find . -printf '%s %p\n'|sort -nr|head</code>
+		
+	</section>
+
+
+</body>
+</html>
