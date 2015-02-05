@@ -1,0 +1,89 @@
+/**
+* styles.css
+*
+* 
+**/
+body
+{
+	color: #333;
+	font-size: 14px;
+	font-family: Helvetica, Arial, sans-serif;
+	width: 100%;
+	max-width: 1024px;
+	padding: 25px;
+	margin: auto;
+}
+
+h1
+{
+	font-size: 35px;
+	font-weight: lighter;
+}
+
+h2
+{
+	font-weight: lighter;
+	border-top: 1px solid #eee;
+	padding-top: 0.6em;
+	margin-top: 2.6em;
+}
+
+p
+{
+	line-height: 1.6em;
+}
+
+code
+{
+	display: block;
+	padding: 5px 10px;
+	line-height: 1.6em;
+	background-color: #eee;
+}
+
+code.inline
+{
+	display: inline-block;
+	line-height: 1em;
+}
+
+
+ol > li 
+{
+	line-height: 1.5em;
+}
+
+
+a.btn-goto-top
+{
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	background-color: #11a7db;
+	color: #fff;
+	font-size: 11px;
+	text-transform: uppercase;
+	font-weight: lighter;
+	letter-spacing: 1.4px;
+	text-decoration: none;
+	padding: 11px 0 9px 0;
+	width: 140px;
+	text-align: center;
+	-webkit-backface-visibility: hidden;
+	-webkit-border-radius: 18px;
+	-moz-border-radius: 18px;
+	-ms-border-radius: 18px;
+	-o-border-radius: 18px;
+	border-radius: 18px;
+	-webkit-transition: background 200ms ease;
+	-moz-transition: background 200ms ease;
+	-ms-transition: background 200ms ease;
+	-o-transition: background 200ms ease;
+	transition: background 200ms ease;
+}
+
+a.btn-goto-top:hover
+{
+	color: #f1f1f1;
+	background-color: #333;
+}

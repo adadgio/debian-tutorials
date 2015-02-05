@@ -1,61 +1,11 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<title>Debian tutorial, tips @ hints</title>
-
-	<style type="text/css">
-	body
-	{
-		color: #333;
-		font-size: 14px;
-		font-family: Helvetica, Arial, sans-serif;
-		width: 100%;
-		max-width: 1024px;
-		padding: 25px;
-		margin: auto;
-	}
-
-	h1
-	{
-		font-size: 35px;
-		font-weight: lighter;
-	}
-
-	h2
-	{
-		font-weight: lighter;
-		border-top: 1px solid #eee;
-		padding-top: 0.6em;
-		margin-top: 2.6em;
-	}
-
-	p
-	{
-		line-height: 1.6em;
-	}
-
-	code
-	{
-		display: block;
-		padding: 5px 10px;
-		line-height: 1.6em;
-		background-color: #eee;
-	}
-
-	code.inline
-	{
-		display: inline-block;
-		line-height: 1em;
-	}
-
-
-	ol > li 
-	{
-		line-height: 1.5em;
-	}
-	</style>
+	<link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
-<body>
+<body id="top">
 
 
 	<h1>Debian tips &amp; tricks</h1>
@@ -65,7 +15,8 @@
 		<ol>
 			<li><a href="#change-mysql-database-directory">Changing Mysql defaut database storage directory</a></li>
 			<li><a href="#install-neo4j-on-debian">Installing Neo4j graph database</a></li>
-			<li><a href="#change-neo4j-database-directory">Chaning Neo4j default database storage directory</a></li>
+			<li><a href="#change-neo4j-database-directory">Changing Neo4j default database storage directory</a></li>
+			<li><a href="#debian-finding-large-files-in-directory">Finding large files</a></li>
 		</ol>
 	</section>
 
@@ -87,10 +38,10 @@
 			nano /etc/mysql/my.cnf
 		</code>
 
-		<p>Look for the <code class="inline">datadir</code> entry here (should be <code class="inline">/var/lib/mysql</code>) and change it to <code class="inline">/newpath</code></p>
-
-		<p>Restart Mysql and your done !</p>
+		<p>Look for the <code class="inline">datadir = </code> entry here (should be <code class="inline">/var/lib/mysql</code>) and change it to <code class="inline">/newpath</code>. Restart Mysql and your done !</p>
 		<code>/etc/init.d/mysql restart</code>
+
+		<p>You could final use <strong>with caution</strong> <code class="inline">rm -rf /var/lib/mysql/*</code></p>
 	</section>
 
 
@@ -112,36 +63,45 @@
 			apt-get install neo4j
 		</code>
 
-		<p>Here you <strong>you are</strong>, just check that Neo4j is running ! You should be able to access the Neo4J server webadmin vie [IP.NU.MB.ER]:7474</p>
+		<p>Here you <strong>you are</strong>, just check that Neo4j is running ! You should be able to access the Neo4J server webadmin via [IP.NU.MB.ER]:7474 (if not refer to <a href="#neo4j-allow-any-client-to-connect">Neo4j allow any client to connect</a></p>
 		<code>service neo4j-service status</code>
 	</section>
 
 
 	<section>
-		<h2 id="change-neo4j-database-directory">Change Neo4j defautl database directory</h2>
+		<h2 id="change-neo4j-database-directory">Change Neo4j default database directory</h2>
 
-		<p>Under construction</p>
+		<p>Go to to Neo4j installation directory or find it with <code class="inline">find / -name "neo4j-server.properties"</code> (probably <code class="inline">/var/lib/neo4j/neo4j-server.properties</code>) and edit the <strong><i>neo4j-server.properties</i></strong> file.</p>
+
+		<p>
+			I've found that this file is also present in <i>/etc/neo4j/neo4j-server.properties</i> but don't know why so i changed both.
+		</p>
 		
-		<p></p>
 		<code>
-			
+			nano /var/lib/neo4j/neo4j-server.properties
+		</code>
+		<p>Change the line <code class="inline">org.neo4j.server.database.location=data/graph.db</code> to the new path
+		<code class="inline">org.neo4j.server.database.location=/newpath/example/graph.db</code> (graph.db must be an empty <strong>folder</strong> that you need to create.</p>
+
+		<p id="neo4j-allow-any-client-to-connect">You can also allow any new client to connect by uncommenting the line</p>
+		<code>
+			#allow any client to connect<br>
+			org.neo4j.server.webserver.address=0.0.0.0
 		</code>
 
-		<p></p>
-		<code>
-			
-		</code>
+		<p>More interesting and usefull configuration option can be found on the <a href="http://neo4j.com/docs/stable/server-configuration.html" target="_blank">Neo4j Manual, 22.2 Server confugration section</a></p>
 	</section>
 
 
 	<section>
 		<h2 id="debian-finding-large-files-in-directory">Finding large files in a directory</h2>
-
 		<p>Move ya'self to the desired directory via <code class="inline">cd /somedir/path</code> and then run</p>
 		<code>find . -printf '%s %p\n'|sort -nr|head</code>
 		
 	</section>
 
+
+	<a href="#top" class="btn-goto-top">SCROLL TO TOP</a>
 
 </body>
 </html>
